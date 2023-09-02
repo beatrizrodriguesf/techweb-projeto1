@@ -17,15 +17,5 @@ function getRandomInt(min, max) {
   
       textarea.addEventListener("input", autoResize, false);
     }
-  
-    // Sorteia classes de cores aleatoriamente para os cards
-    let cards = document.getElementsByClassName("card");
-    for (let i = 0; i < cards.length; i++) {
-      let card = cards[i];
-      card.className += ` card-color-${getRandomInt(
-        1,
-        5
-      )} card-rotation-${getRandomInt(1, 11)}`;
-    }
 
   });

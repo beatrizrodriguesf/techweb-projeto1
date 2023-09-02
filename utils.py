@@ -21,7 +21,7 @@ def load_template(template):
     return arquivo
 
 def update_notes(params):
-    db.add(Note(title=f'{params["titulo"]}', content=f'{params["detalhes"]}'))
+    db.add(Note(category=f'{params["categoria"]}', title=f'{params["titulo"]}', content=f'{params["detalhes"]}'))
     notes = load_data()
     return notes
 

@@ -44,6 +44,7 @@ a {
   padding-bottom: 1rem;
   height: 1.5rem;
 }
+
 .form-card-title::-webkit-input-placeholder {
   font-size: 1.5rem;
   font-weight: bold;
@@ -59,7 +60,26 @@ a {
   font-family: "Roboto", sans-serif;
   font-size: 1rem;
 }
-
+.category-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.categorias{
+  font-size: 0.9rem;
+  margin: 0.2rem;
+}
+.input-categories{
+  width: 50%;
+  padding: 0.5rem 0;
+  margin: 0.5rem 0;
+}
+.card-category {
+  display:flex;
+  flex-direction:row-reverse;
+  font-size: 0.8rem;
+  color: gray;
+}
 .card-error{
     align-self: center;
     display: flex;
@@ -121,11 +141,9 @@ a {
   color: #4c4c4c;
 }
 
-.card-color-1 {background-color: #ead3a7;}
-.card-color-2 {background-color: #9de0f5;}
-.card-color-3 {background-color: #ef89ba;}
-.card-color-4 {background-color: #fae890;}
-.card-color-5 {background-color: #abe9c1;}
+.Faculdade {background-color: #ead3a7;}
+.Pessoal {background-color: #9de0f5;}
+.Casa {background-color: #ef89ba;}
 
 .card-rotation-1 {transform: rotate(-5deg);}
 .card-rotation-2 {transform: rotate(-4deg);}
