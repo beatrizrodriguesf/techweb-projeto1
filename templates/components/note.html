@@ -1,4 +1,12 @@
-<li>
-    <h3>{title}</h3>
-    <p>{details}</p>
-</li>
+<div class="card">
+  <div class="card-title-icons">
+    <h3 class="card-title">{title}</h3>
+    <div class="card-icons">
+      <a href="update/{id}"><img src="img/editar.png" class="icon" /></a>
+      <a href="delete/{id}"><img src="img/lixeira.png" class="icon" /></a>
+    </div>
+  </div>
+    <div class="card-content">
+      <p>{details}</p>
+    </div>
+</div>

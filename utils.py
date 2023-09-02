@@ -1,4 +1,7 @@
 import json
+from database.database import Database, Note
+
+db = Database('./database/banco_get-it')
 
 def extract_route(request):
     rota = request.split(" ")[1][1:]
@@ -8,19 +11,18 @@ def read_file(path):
     arquivo = open(path, mode = "r+b").read()
     return arquivo
 
-def load_data(data):
-    arquivo = json.loads(read_file("data/" + data))
-    return arquivo
+def load_data():
+    notes = db.get_all()
+    return notes
 
 def load_template(template):
-    arquivo = open("templates/" + template, mode = "r").read()
+    arquivo = open("templates/" + template, mode = "r", encoding="utf-8").read()
     return arquivo
 
 def update_notes(params):
-    notes = load_data("notes.json")
-    notes.append(params)
-    arquivo = open("data/notes.json", mode = "w").write(json.dumps(notes))
-    return arquivo
+    db.add(Note(title=f'{params["titulo"]}', content=f'{params["detalhes"]}'))
+    notes = load_data()
+    return notes
 
 def build_response(body='', code=200, reason='OK', headers=''):
     if headers != '':

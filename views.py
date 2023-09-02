@@ -1,5 +1,8 @@
 from utils import load_data, load_template, update_notes, build_response
 import urllib
+from database.database import Database, Note
+
+db = Database('./database/banco_get-it')
 
 def index(request):
     # A string de request sempre começa com o tipo da requisição (ex: GET, POST)
@@ -26,9 +29,33 @@ def index(request):
     # Se tiver curiosidade: https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions
     note_template = load_template('components/note.html')
     notes_li = [
-        note_template.format(title=dados['titulo'], details=dados['detalhes'])
-        for dados in load_data('notes.json')
+        note_template.format(title=dados.title, details=dados.content, id = dados.id)
+        for dados in load_data()
     ]
     notes = '\n'.join(notes_li)
 
     return build_response(body = load_template('index.html').format(notes=notes))
+
+def delete(id):
+    db.delete(id)
+    return build_response(code = 303, reason = 'See other', headers = 'Location: /')
+
+def update(request,id):
+    note = db.get_note(id)
+
+    if request.startswith('POST'):
+        request = request.replace('\r', '')
+        partes = request.split('\n\n')
+        corpo = partes[1]
+        params = {}
+
+        for chave_valor in corpo.split('&'):
+            chave, valor = urllib.parse.unquote_plus(chave_valor).split("=")
+            params[chave] = valor
+
+        edited_note = Note(title=params["titulo"], content=params["conteudo"], id=id)
+        db.update(edited_note)
+
+        return build_response(code = 303, reason = 'See other', headers = 'Location: /')
+
+    return build_response(body = load_template('update.html').format(titulo = note.title, conteudo = note.content))
