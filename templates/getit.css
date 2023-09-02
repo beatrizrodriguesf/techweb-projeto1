@@ -3,6 +3,12 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+a {
+  text-decoration: none;
+  color: black;
+  text-align: center;
+}
+
 .appbar {
   background-color: #f7d736;
   display: flex;
@@ -52,6 +58,19 @@ body {
 .autoresize::-webkit-input-placeholder { 
   font-family: "Roboto", sans-serif;
   font-size: 1rem;
+}
+
+.card-error{
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    background-color: #FA8072;
+    margin: 10rem;
+    padding: 0.6rem;
+    border-radius: 0.3rem;
+    width: 20vw;
+    min-height: 8rem;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
 .card-container {
@@ -124,6 +143,7 @@ body {
   position: relative;
   display: block;
   padding: 10px 15px;
+  font-size: 1rem;
 
   overflow: hidden;
 

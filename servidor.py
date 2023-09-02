@@ -1,6 +1,6 @@
 import socket
 from pathlib import Path
-from utils import extract_route, read_file, build_response
+from utils import extract_route, read_file, build_response, load_template
 from views import index, delete,update
 
 CUR_DIR = Path(__file__).parent
@@ -32,10 +32,9 @@ while True:
         id = int(route.split("/")[1])
         response = delete(id)
     elif route.startswith("update"):
-        id = int(route.split("/")[1])
-        response = update(request,id)
+        response = update(request)
     else:
-        response = build_response()
+        response = build_response(body=load_template("notFound.html"), code = 404, reason = 'Not Found')
 
     client_connection.sendall(response)
 

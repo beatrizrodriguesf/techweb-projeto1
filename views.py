@@ -1,4 +1,4 @@
-from utils import load_data, load_template, update_notes, build_response
+from utils import load_data, load_template, update_notes, build_response, extract_route
 import urllib
 from database.database import Database, Note
 
@@ -40,9 +40,8 @@ def delete(id):
     db.delete(id)
     return build_response(code = 303, reason = 'See other', headers = 'Location: /')
 
-def update(request,id):
-    note = db.get_note(id)
-
+def update(request):
+     
     if request.startswith('POST'):
         request = request.replace('\r', '')
         partes = request.split('\n\n')
@@ -53,9 +52,13 @@ def update(request,id):
             chave, valor = urllib.parse.unquote_plus(chave_valor).split("=")
             params[chave] = valor
 
-        edited_note = Note(title=params["titulo"], content=params["conteudo"], id=id)
+        edited_note = Note(title=params["titulo"], content=params["conteudo"], id=params["id"])
         db.update(edited_note)
 
-        return build_response(code = 303, reason = 'See other', headers = 'Location: /')
-
-    return build_response(body = load_template('update.html').format(titulo = note.title, conteudo = note.content))
+        return build_response(code = 303, reason = 'See -other', headers = 'Location: /')
+    
+    route = extract_route(request)
+    id = int(route.split("/")[1])
+    note = db.get_note(id)
+    
+    return build_response(body = load_template('update.html').format(titulo = note.title, conteudo = note.content, id = note.id))

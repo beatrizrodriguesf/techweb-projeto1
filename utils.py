@@ -4,8 +4,9 @@ from database.database import Database, Note
 db = Database('./database/banco_get-it')
 
 def extract_route(request):
-    rota = request.split(" ")[1][1:]
-    return rota
+    if request != "":
+        return request.split(" ")[1][1:]
+    return ""
 
 def read_file(path):
     arquivo = open(path, mode = "r+b").read()
